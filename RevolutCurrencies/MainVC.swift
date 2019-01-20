@@ -54,7 +54,11 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 if let rates = ratesDictionary["rates"] as? [String : Any] {
                     self.currencies = rates.map {$0.key}
                     self.rates = rates.map {$0.value} as? [Double] ?? []
-                    self.ratesTableView.reloadData()
+                    
+                    //Update UI at the main thread
+                    DispatchQueue.main.async {
+                        self.ratesTableView.reloadData()
+                    }
                 }
             }
         }

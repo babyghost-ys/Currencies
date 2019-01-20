@@ -12,10 +12,10 @@ import Alamofire
 class ApiHandler {
     
     func requestData(_ requestURL:String, completionHandler: @escaping(Any) -> Void) {
-        let manager = Alamofire.SessionManager.default
-        manager.session.configuration.timeoutIntervalForRequest = 120
         
-        manager.request(requestURL, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: [:]).responseJSON { (response) in
+        let queue = DispatchQueue(label: "com.winandmac.RevolutCurrencies", qos: .background, attributes: .concurrent)
+        
+        Alamofire.request(requestURL, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: [:]).responseJSON(queue: queue) { (response) in
             
             guard let returnedData = response.result.value else { return }
             completionHandler(returnedData)
