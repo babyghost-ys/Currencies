@@ -15,7 +15,6 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let ratesTableView: UITableView = {
         let tableView = UITableView()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
     
@@ -34,7 +33,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         setupLayout()
         
         //Register the table view cell id first
-        ratesTableView.register(UITableViewCell.self, forCellReuseIdentifier: cellName)
+        ratesTableView.register(RateCell.self, forCellReuseIdentifier: cellName)
         
         //Set the delegate and data source
         ratesTableView.delegate = self
@@ -55,8 +54,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     //MARK: Adding the auto layout constraints for the table view
     func setupLayout() {
-        let constraints = [ratesTableView.topAnchor.constraint(equalTo: view.topAnchor), ratesTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor), ratesTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),  ratesTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)]
-        NSLayoutConstraint.activate(constraints)
+        ratesTableView.setAnchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0)
     }
     
     //MARK: Main table view delegates
@@ -65,8 +63,11 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellName, for: indexPath)
-        cell.textLabel?.text = "\(self.currencies[indexPath.row]) \(self.rates[indexPath.row])"
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellName, for: indexPath) as? RateCell else {
+            return RateCell()
+        }
+        
+        cell.rateLabel.text = "\(self.currencies[indexPath.row]) \(self.rates[indexPath.row])"
         return cell
     }
 }
