@@ -24,6 +24,9 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     //Holding the converted currencies and rates
     var currencies = [String]()
     var rates = [Double]()
+    
+    //Create a timer to try to get data every second
+    var liveTimer:Timer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +42,11 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         ratesTableView.delegate = self
         ratesTableView.dataSource = self
         
+        //Updating every second
+        liveTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(loadData), userInfo: nil, repeats: true)
+    }
+
+    @objc func loadData() {
         //ApiHandler Test
         apiHandler.requestData("https://revolut.duckdns.org/latest?base=GBP") { (returnedData) in
             
@@ -51,7 +59,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }
         }
     }
-
+    
     //MARK: Adding the auto layout constraints for the table view
     func setupLayout() {
         ratesTableView.setAnchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0)
