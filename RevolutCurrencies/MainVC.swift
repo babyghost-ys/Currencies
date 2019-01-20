@@ -18,6 +18,9 @@ class MainVC: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
+    
+    //ApiHandler Test
+    let apiHandler = ApiHandler()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +28,14 @@ class MainVC: UIViewController {
         //Trying to add the table view to the main interface
         view.addSubview(ratesTableView)
         setupLayout()
+        
+        //ApiHandler Test
+        apiHandler.requestData("https://revolut.duckdns.org/latest?base=GBP") { (returnedData) in
+            
+            if let ratesDictionary = returnedData as? [String : Any] {
+                print(ratesDictionary["rates"])
+            }
+        }
     }
 
     //MARK: Adding the auto layout constraints for the table view

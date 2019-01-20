@@ -11,14 +11,14 @@ import Alamofire
 
 class ApiHandler {
     
-    func requestData(_ requestURL:String, completionHandler: @escaping(Data) -> Void) {
+    func requestData(_ requestURL:String, completionHandler: @escaping(Any) -> Void) {
         let manager = Alamofire.SessionManager.default
         manager.session.configuration.timeoutIntervalForRequest = 120
         
         manager.request(requestURL, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: [:]).responseJSON { (response) in
             
-            guard let data = response.data else { return }
-            completionHandler(data)
+            guard let returnedData = response.result.value else { return }
+            completionHandler(returnedData)
         }
     }
 }
