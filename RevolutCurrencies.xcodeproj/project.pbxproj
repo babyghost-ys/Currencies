@@ -13,6 +13,7 @@
 		AAFB44D621F483240015DD0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAFB44D521F483240015DD0A /* Assets.xcassets */; };
 		AAFB44D921F483240015DD0A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAFB44D721F483240015DD0A /* LaunchScreen.storyboard */; };
 		AAFB44E421F483240015DD0A /* RevolutCurrenciesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFB44E321F483240015DD0A /* RevolutCurrenciesTests.swift */; };
+		AAFE852F21F48EC90012CF68 /* ApiHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFE852E21F48EC90012CF68 /* ApiHandler.swift */; };
 		B62E76E28906EEA7A37C5AEB /* Pods_RevolutCurrencies.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95C1AC9B4BABA06A36F626E1 /* Pods_RevolutCurrencies.framework */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,7 @@
 		AAFB44DF21F483240015DD0A /* RevolutCurrenciesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RevolutCurrenciesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAFB44E321F483240015DD0A /* RevolutCurrenciesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevolutCurrenciesTests.swift; sourceTree = "<group>"; };
 		AAFB44E521F483240015DD0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AAFE852E21F48EC90012CF68 /* ApiHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHandler.swift; sourceTree = "<group>"; };
 		DA2CCE64CB3B57C36AC58732 /* Pods-RevolutCurrenciesTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RevolutCurrenciesTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RevolutCurrenciesTests/Pods-RevolutCurrenciesTests.debug.xcconfig"; sourceTree = "<group>"; };
 		DBA7B7C28493D6E40789BA66 /* Pods-RevolutCurrenciesTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RevolutCurrenciesTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RevolutCurrenciesTests/Pods-RevolutCurrenciesTests.release.xcconfig"; sourceTree = "<group>"; };
 		FA69741D46F3576C1889001B /* Pods-RevolutCurrencies.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RevolutCurrencies.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RevolutCurrencies/Pods-RevolutCurrencies.debug.xcconfig"; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				AAFB44D521F483240015DD0A /* Assets.xcassets */,
 				AAFB44D721F483240015DD0A /* LaunchScreen.storyboard */,
 				AAFB44DA21F483240015DD0A /* Info.plist */,
+				AAFE852E21F48EC90012CF68 /* ApiHandler.swift */,
 			);
 			path = RevolutCurrencies;
 			sourceTree = "<group>";
@@ -286,6 +289,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAFB44D121F483220015DD0A /* MainVC.swift in Sources */,
+				AAFE852F21F48EC90012CF68 /* ApiHandler.swift in Sources */,
 				AAFB44CF21F483220015DD0A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
