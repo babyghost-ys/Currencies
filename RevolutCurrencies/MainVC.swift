@@ -82,8 +82,8 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellName, for: indexPath) as? RateCell else {
             return RateCell()
         }
-        
-        cell.rateLabel.text = "\(self.currencies[indexPath.row]) \(self.rates[indexPath.row])"
+        cell.currenciesLabel.text = "\(self.currencies[indexPath.row])"
+        cell.rateTextField.text = "\(self.rates[indexPath.row])"
         return cell
     }
 }
