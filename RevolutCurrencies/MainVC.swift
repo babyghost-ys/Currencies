@@ -22,8 +22,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     let apiHandler = ApiHandler()
     
     //Holding the converted currencies and rates
-    var currencies = [String]()
-    var rates = [Double]()
+    var currencies = [Currency]()
     
     //Create a timer to try to get data every second
     var liveTimer:Timer?
@@ -55,8 +54,14 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     
                     //Update UI and data at the main thread
                     DispatchQueue.main.async {
-                        self.currencies = rates.map {$0.key}
-                        self.rates = rates.map {$0.value} as? [Double] ?? []
+                        
+                        self.currencies.removeAll()
+                        
+                        for rate in rates {
+                            let currency = Currency(country: rate.key, rate: rate.value as? Double ?? 0)
+                            self.currencies.append(currency)
+                        }
+                        
                         self.ratesTableView.reloadData()
                     }
                 }
@@ -82,8 +87,8 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellName, for: indexPath) as? RateCell else {
             return RateCell()
         }
-        cell.currenciesLabel.text = "\(self.currencies[indexPath.row])"
-        cell.rateTextField.text = "\(self.rates[indexPath.row])"
+        cell.currenciesLabel.text = "\(self.currencies[indexPath.row].country ?? "")"
+        cell.rateTextField.text = "\(self.currencies[indexPath.row].rate ?? 0)"
         return cell
     }
 }

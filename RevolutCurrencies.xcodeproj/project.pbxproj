@@ -10,6 +10,7 @@
 		85178F4122045B1F32661CE6 /* Pods_RevolutCurrenciesTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 469FAF9AF57C040DD948FB06 /* Pods_RevolutCurrenciesTests.framework */; };
 		AA6BFBAF21F4F6A400804D22 /* UIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6BFBAE21F4F6A400804D22 /* UIExtensions.swift */; };
 		AA6BFBB121F4F7D500804D22 /* RateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6BFBB021F4F7D500804D22 /* RateCell.swift */; };
+		AA76FD9621F577C800566E41 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA76FD9521F577C800566E41 /* Currency.swift */; };
 		AAFB44CF21F483220015DD0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFB44CE21F483220015DD0A /* AppDelegate.swift */; };
 		AAFB44D121F483220015DD0A /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFB44D021F483220015DD0A /* MainVC.swift */; };
 		AAFB44D621F483240015DD0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAFB44D521F483240015DD0A /* Assets.xcassets */; };
@@ -35,6 +36,7 @@
 		95C1AC9B4BABA06A36F626E1 /* Pods_RevolutCurrencies.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RevolutCurrencies.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA6BFBAE21F4F6A400804D22 /* UIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIExtensions.swift; sourceTree = "<group>"; };
 		AA6BFBB021F4F7D500804D22 /* RateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateCell.swift; sourceTree = "<group>"; };
+		AA76FD9521F577C800566E41 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		AAFB44CB21F483220015DD0A /* RevolutCurrencies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RevolutCurrencies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAFB44CE21F483220015DD0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AAFB44D021F483220015DD0A /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				AAFE852E21F48EC90012CF68 /* ApiHandler.swift */,
 				AA6BFBAE21F4F6A400804D22 /* UIExtensions.swift */,
 				AA6BFBB021F4F7D500804D22 /* RateCell.swift */,
+				AA76FD9521F577C800566E41 /* Currency.swift */,
 			);
 			path = RevolutCurrencies;
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA76FD9621F577C800566E41 /* Currency.swift in Sources */,
 				AAFB44D121F483220015DD0A /* MainVC.swift in Sources */,
 				AA6BFBB121F4F7D500804D22 /* RateCell.swift in Sources */,
 				AAFE852F21F48EC90012CF68 /* ApiHandler.swift in Sources */,
