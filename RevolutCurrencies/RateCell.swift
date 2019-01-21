@@ -49,7 +49,10 @@ class RateCell: UITableViewCell {
 
     func configureCell(_ inputCurrency: Currency) {
         currencyLabel.text = "\(inputCurrency.currency ?? "")"
-        rateTextField.text = "\(inputCurrency.rate ?? 0)"
+        
+        //Rounding the currency rate
+        let rate = String(format: "%.3f", inputCurrency.rate ?? 0)
+        rateTextField.text = rate
     }
     
     required init?(coder aDecoder: NSCoder) {
