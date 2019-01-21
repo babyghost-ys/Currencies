@@ -9,8 +9,8 @@
 import Foundation
 
 class Currency {
-    var currency: String?
-    var rate: Double?
+    private(set) var currency: String?
+    private(set) var rate: Double?
     
     init(_ currency: String, rate: Double) {
         self.currency = currency

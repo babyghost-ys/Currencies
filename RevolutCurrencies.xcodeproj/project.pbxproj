@@ -92,6 +92,41 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		AA68183621F642AD00611013 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AA76FD9521F577C800566E41 /* Currency.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		AA68183721F642C200611013 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AA6BFBAE21F4F6A400804D22 /* UIExtensions.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		AA68183821F642CE00611013 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				AAFE852E21F48EC90012CF68 /* ApiHandler.swift */,
+				AAFB44D021F483220015DD0A /* MainVC.swift */,
+				AA6BFBB021F4F7D500804D22 /* RateCell.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		AA68183921F6438A00611013 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AAFB44CE21F483220015DD0A /* AppDelegate.swift */,
+				AAFB44DA21F483240015DD0A /* Info.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		AAFB44C221F483220015DD0A = {
 			isa = PBXGroup;
 			children = (
@@ -115,15 +150,12 @@
 		AAFB44CD21F483220015DD0A /* RevolutCurrencies */ = {
 			isa = PBXGroup;
 			children = (
-				AAFB44CE21F483220015DD0A /* AppDelegate.swift */,
-				AAFB44D021F483220015DD0A /* MainVC.swift */,
+				AA68183621F642AD00611013 /* Model */,
+				AA68183721F642C200611013 /* View */,
+				AA68183821F642CE00611013 /* Controller */,
+				AA68183921F6438A00611013 /* Supporting Files */,
 				AAFB44D521F483240015DD0A /* Assets.xcassets */,
 				AAFB44D721F483240015DD0A /* LaunchScreen.storyboard */,
-				AAFB44DA21F483240015DD0A /* Info.plist */,
-				AAFE852E21F48EC90012CF68 /* ApiHandler.swift */,
-				AA6BFBAE21F4F6A400804D22 /* UIExtensions.swift */,
-				AA6BFBB021F4F7D500804D22 /* RateCell.swift */,
-				AA76FD9521F577C800566E41 /* Currency.swift */,
 			);
 			path = RevolutCurrencies;
 			sourceTree = "<group>";
@@ -459,7 +491,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2S6B5447W9;
-				INFOPLIST_FILE = RevolutCurrencies/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/RevolutCurrencies/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -479,7 +511,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2S6B5447W9;
-				INFOPLIST_FILE = RevolutCurrencies/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/RevolutCurrencies/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
