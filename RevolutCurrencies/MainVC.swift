@@ -178,34 +178,26 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        //The following trick ensures when the top row becomes the first responder, users can tap the other white spaces of the table view to dismiss the keyboard.
-        if keyboardVisible == false {
-            
-            //Only move the row and update with the new base currency if the keyboard is not visible
-            liveTimer?.invalidate()
-            
-            ratesTableView.beginUpdates()
-            ratesTableView.moveRow(at: indexPath, to: IndexPath(row: 0, section: 0))
-            ratesTableView.endUpdates()
-            
-            //Grab the selected currency to prepare to fetch updated data
-            let currentCurency = currencies[indexPath.row]
-            currentBaseCurrency = currentCurency.currency ?? "EUR"
-            currentRate = currentCurency.rate ?? 0.0
-            
-            //Remove the item in the currencies
-            let removeItem = currencies.remove(at: indexPath.row)
-            currencies.insert(removeItem, at: 0)
-            
-            //Scroll to top of the table view
-            ratesTableView.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .top)
-            ratesTableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
-            
-            startUpdateRates()
-        } else {
-            //User is trying to enter the value at the top row, tapping other rows or other white spaces can now dismiss the keyboard.
-            self.view.endEditing(true)
-        }
+        liveTimer?.invalidate()
+        
+        ratesTableView.beginUpdates()
+        ratesTableView.moveRow(at: indexPath, to: IndexPath(row: 0, section: 0))
+        ratesTableView.endUpdates()
+        
+        //Grab the selected currency to prepare to fetch updated data
+        let currentCurency = currencies[indexPath.row]
+        currentBaseCurrency = currentCurency.currency ?? "EUR"
+        currentRate = currentCurency.rate ?? 0.0
+        
+        //Remove the item in the currencies
+        let removeItem = currencies.remove(at: indexPath.row)
+        currencies.insert(removeItem, at: 0)
+        
+        //Scroll to top of the table view
+        ratesTableView.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .top)
+        ratesTableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
+        
+        startUpdateRates()
     }
 }
 
