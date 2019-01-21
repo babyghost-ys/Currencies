@@ -48,17 +48,23 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         startUpdateRates()
     }
     
+    //MARK: Start to monitor keyboard when view appears
     override func viewWillAppear(_ animated: Bool) {
         startToMonitorKeyboard()
     }
+    
+    //MARK: Remove the notification center when the view starts to disappear
+    override func viewWillDisappear(_ animated: Bool) {
+         NotificationCenter.default.removeObserver(self)
+    }
 
+    //MARK: Function to request data every 1 second
     func startUpdateRates() {
-        //Updating every second
         liveTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(loadData), userInfo: nil, repeats: true)
     }
     
+    //MARK: Main function to load data from the internet
     @objc func loadData() {
-        //ApiHandler Test
         apiHandler.requestData("https://revolut.duckdns.org/latest?base=\(currentBaseCurrency)") { (returnedData) in
             
             if let ratesDictionary = returnedData as? [String : Any] {
@@ -77,7 +83,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                             self.currencies.append(currency)
                         }
                         
-                        //Add back the current base currency
+                        //Add back the current base currency on top of the Currency object
                         let baseCurrency = Currency(self.currentBaseCurrency, rate: self.currentRate)
                         self.currencies.insert(baseCurrency, at: 0)
                         
@@ -88,7 +94,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    //MARK: Keyboard features
+    //MARK: Notification centres to monitor the keyboard
     func startToMonitorKeyboard() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidDisappear), name: UIResponder.keyboardDidHideNotification, object: nil)
