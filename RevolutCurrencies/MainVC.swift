@@ -26,6 +26,10 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     //Create a timer to try to get data every second
     var liveTimer:Timer?
+    
+    //Setting default base currency and curreny amount
+    var currentBaseCurrency = "GBP"
+    var currentRate:Double = 1
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,9 +62,13 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                         self.currencies.removeAll()
                         
                         for rate in rates {
-                            let currency = Currency(country: rate.key, rate: rate.value as? Double ?? 0)
+                            let currency = Currency(rate.key, rate: rate.value as? Double ?? 0)
                             self.currencies.append(currency)
                         }
+                        
+                        //Add back the current base currency
+                        let baseCurrency = Currency(self.currentBaseCurrency, rate: self.currentRate)
+                        self.currencies.insert(baseCurrency, at: 0)
                         
                         self.ratesTableView.reloadData()
                     }
@@ -87,7 +95,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellName, for: indexPath) as? RateCell else {
             return RateCell()
         }
-        cell.currenciesLabel.text = "\(self.currencies[indexPath.row].country ?? "")"
+        cell.currenciesLabel.text = "\(self.currencies[indexPath.row].currency ?? "")"
         cell.rateTextField.text = "\(self.currencies[indexPath.row].rate ?? 0)"
         return cell
     }

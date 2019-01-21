@@ -9,11 +9,11 @@
 import Foundation
 
 class Currency {
-    var country: String?
+    var currency: String?
     var rate: Double?
     
-    init(country: String, rate: Double) {
-        self.country = country
+    init(_ currency: String, rate: Double) {
+        self.currency = currency
         self.rate = rate
     }
 }
