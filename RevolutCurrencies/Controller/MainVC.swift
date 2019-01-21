@@ -28,7 +28,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     var liveTimer:Timer?
     
     //Setting default base currency and curreny amount
-    var currentBaseCurrency = "GBP"
+    var currentBaseCurrency = "EUR"
     var currentRate:Double = 1
     
     //Add a check for the keyboard visible or not
@@ -37,6 +37,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Allow users to tap the navigation bar to hide the keyboard
         self.navigationController?.hideKeyboardWhenTapped()
         
         //Trying to add the table view to the main interface
@@ -50,6 +51,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         ratesTableView.delegate = self
         ratesTableView.dataSource = self
         
+        //Start to update the rates every second
         startUpdateRates()
     }
     
@@ -72,6 +74,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     @objc func loadData() {
         apiHandler.requestData("https://revolut.duckdns.org/latest?base=\(currentBaseCurrency)") { (returnedData) in
             
+            //Parse the data as dictionary first
             if let ratesDictionary = returnedData as? [String : Any] {
                 if let rates = ratesDictionary["rates"] as? [String : Any] {
                     
@@ -116,19 +119,17 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     
     //MARK: Notification centres to monitor the keyboard
     func startToMonitorKeyboard() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidDisappear), name: UIResponder.keyboardDidHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
+    //Stop the app to update data when the keyboard appears
     @objc func keyboardWillAppear() {
         liveTimer?.invalidate()
         keyboardVisible = true
     }
     
-    @objc func keyboardWillDisappear() {
-    }
-    
+    //Let the app to update data again when the keyboard is going away
     @objc func keyboardDidDisappear() {
         keyboardVisible = false
         startUpdateRates()
@@ -153,8 +154,11 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
             return RateCell()
         }
         
+        //Load the data only the data count is larger than 0
         if self.currencies.count > 0 {
             cell.configureCell(self.currencies[indexPath.row])
+            
+            //Set the delegate of the text field of the cell to this view controller. Monitor the user's entered value.
             cell.rateTextField.delegate = self
             cell.rateTextField.addTarget(self, action: #selector(textFieldDidChange(_:)),
                                          for: .editingChanged)
@@ -163,6 +167,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         return cell
     }
     
+    //Simultaneously update the corresponding value for other currencies.
     @objc func textFieldDidChange(_ textField: UITextField) {
         
         if let currentText = textField.text, !currentText.isEmpty {
@@ -176,6 +181,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         loadData()
     }
     
+    //Actions to do when a user tap the row
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         keyboardVisible = true

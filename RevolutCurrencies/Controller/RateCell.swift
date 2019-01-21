@@ -9,11 +9,6 @@
 import UIKit
 
 class RateCell: UITableViewCell {
-
-    let cellView: UIView = {
-        let view = UIView()
-        return view
-    }()
     
     let countryImageView: UIImageView = {
         let imageView = UIImageView()
@@ -40,21 +35,18 @@ class RateCell: UITableViewCell {
     }
     
     func addUIElements() {
-        addSubview(cellView)
-        cellView.addSubview(countryImageView)
-        cellView.addSubview(currencyLabel)
-        cellView.addSubview(rateTextField)
+        addSubview(countryImageView)
+        addSubview(currencyLabel)
+        addSubview(rateTextField)
         
-        cellView.setAnchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0)
-        
-        countryImageView.setAnchor(top: nil, left: cellView.leftAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 16, paddingBottom: 0, paddingRight: 0, width: 60, height: 60)
-        countryImageView.centerYAnchor.constraint(equalTo: cellView.centerYAnchor).isActive = true
+        countryImageView.setAnchor(top: nil, left: leftAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 16, paddingBottom: 0, paddingRight: 0, width: 60, height: 60)
+        countryImageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         
         currencyLabel.setAnchor(top: nil, left: countryImageView.rightAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 8, paddingBottom: 0, paddingRight: 0)
-        currencyLabel.centerYAnchor.constraint(equalTo: cellView.centerYAnchor).isActive = true
+        currencyLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         
         rateTextField.setAnchor(top: nil, left: currencyLabel.rightAnchor, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 8, paddingBottom: 0, paddingRight: 8, height: 30)
-        rateTextField.centerYAnchor.constraint(equalTo: cellView.centerYAnchor).isActive = true
+        rateTextField.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
 
     func configureCell(_ inputCurrency: Currency) {
