@@ -140,7 +140,18 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         ratesTableView.moveRow(at: indexPath, to: IndexPath(row: 0, section: 0))
         ratesTableView.endUpdates()
         
-        currentBaseCurrency = currencies[indexPath.row].currency ?? "EUR"
+        //Grab the selected currency to prepare to fetch updated data
+        let currentCurency = currencies[indexPath.row]
+        currentBaseCurrency = currentCurency.currency ?? "EUR"
+        currentRate = currentCurency.rate ?? 0.0
+        
+        //Remove the item in the currencies
+        let removeItem = currencies.remove(at: indexPath.row)
+        currencies.insert(removeItem, at: 0)
+        
+        //Scroll to top of the table view
+        ratesTableView.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .top)
+        ratesTableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
         
         startUpdateRates()
     }
