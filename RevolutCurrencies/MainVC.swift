@@ -47,6 +47,10 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         startUpdateRates()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        startToMonitorKeyboard()
+    }
 
     func startUpdateRates() {
         //Updating every second
@@ -82,6 +86,24 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 }
             }
         }
+    }
+    
+    //MARK: Keyboard features
+    func startToMonitorKeyboard() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidDisappear), name: UIResponder.keyboardDidHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
+    }
+    
+    @objc func keyboardWillAppear() {
+        liveTimer?.invalidate()
+    }
+    
+    @objc func keyboardWillDisappear() {
+        
+    }
+    
+    @objc func keyboardDidDisappear() {
     }
     
     //MARK: Adding the auto layout constraints for the table view
