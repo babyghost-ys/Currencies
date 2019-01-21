@@ -17,11 +17,14 @@ class RateCell: UITableViewCell {
     
     let currencyLabel: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 0
         return label
     }()
     
     let rateTextField: UITextField = {
         let textField = UITextField()
+        textField.keyboardType = UIKeyboardType.numberPad
+        textField.textAlignment = .right
         return textField
     }()
     
