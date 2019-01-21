@@ -15,6 +15,12 @@ class RateCell: UITableViewCell {
         return view
     }()
     
+    let countryImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    
     let currencyLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
@@ -35,12 +41,16 @@ class RateCell: UITableViewCell {
     
     func addUIElements() {
         addSubview(cellView)
+        cellView.addSubview(countryImageView)
         cellView.addSubview(currencyLabel)
         cellView.addSubview(rateTextField)
         
         cellView.setAnchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0)
         
-        currencyLabel.setAnchor(top: nil, left: cellView.leftAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 8, paddingBottom: 0, paddingRight: 0)
+        countryImageView.setAnchor(top: nil, left: cellView.leftAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 16, paddingBottom: 0, paddingRight: 0, width: 60, height: 60)
+        countryImageView.centerYAnchor.constraint(equalTo: cellView.centerYAnchor).isActive = true
+        
+        currencyLabel.setAnchor(top: nil, left: countryImageView.rightAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 8, paddingBottom: 0, paddingRight: 0)
         currencyLabel.centerYAnchor.constraint(equalTo: cellView.centerYAnchor).isActive = true
         
         rateTextField.setAnchor(top: nil, left: currencyLabel.rightAnchor, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 8, paddingBottom: 0, paddingRight: 8, height: 30)
@@ -48,7 +58,9 @@ class RateCell: UITableViewCell {
     }
 
     func configureCell(_ inputCurrency: Currency) {
-        currencyLabel.text = "\(inputCurrency.currency ?? "")"
+        let currency = inputCurrency.currency ?? ""
+        countryImageView.image = UIImage(named: currency)
+        currencyLabel.text = currency
         
         //Rounding the currency rate
         let rate = String(format: "%.3f", inputCurrency.rate ?? 0)
