@@ -30,7 +30,10 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     //Setting default base currency and curreny amount
     var currentBaseCurrency = "GBP"
     var currentRate:Double = 1
-
+    
+    //Add a check for the keyboard visible or not
+    var keyboardVisible = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -57,9 +60,9 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     
     //MARK: Remove the notification center when the view starts to disappear
     override func viewWillDisappear(_ animated: Bool) {
-         NotificationCenter.default.removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
-
+    
     //MARK: Function to request data every 1 second
     func startUpdateRates() {
         liveTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(loadData), userInfo: nil, repeats: true)
@@ -89,11 +92,28 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
                         let baseCurrency = Currency(self.currentBaseCurrency, rate: self.currentRate)
                         self.currencies.insert(baseCurrency, at: 0)
                         
-                        self.ratesTableView.reloadData()
+                        
+                        if self.keyboardVisible == false {
+                            //If keyboard is not shown (condition == false), just reload the whole table.
+                            self.ratesTableView.reloadData()
+                        } else {
+                            
+                            //If keyboard is shown (condition == true), that means the user is entering value. So, we need to update each row.
+                            self.ratesTableView.beginUpdates()
+                            var changeIndexPath = [IndexPath]()
+                            for x in 1..<self.currencies.count {
+                                let currentIndexPath = IndexPath(row: x, section: 0)
+                                changeIndexPath.append(currentIndexPath)
+                            }
+                            self.ratesTableView.reloadRows(at: changeIndexPath, with: .automatic)
+                            self.ratesTableView.endUpdates()
+                        }
+                        
                     }
                 }
             }
         }
+        
     }
     
     //MARK: Notification centres to monitor the keyboard
@@ -105,13 +125,15 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     
     @objc func keyboardWillAppear() {
         liveTimer?.invalidate()
+        keyboardVisible = true
     }
     
     @objc func keyboardWillDisappear() {
-        
     }
     
     @objc func keyboardDidDisappear() {
+        keyboardVisible = false
+        startUpdateRates()
     }
     
     //MARK: Adding the auto layout constraints for the table view
@@ -144,7 +166,16 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
-        print("Text Field Changed")
+        
+        if let currentText = textField.text, !currentText.isEmpty {
+            guard let currentValue = Double(currentText) else { return }
+            currentRate = currentValue
+        } else {
+            textField.placeholder = "0"
+            currentRate = 0
+        }
+        
+        loadData()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
