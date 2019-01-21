@@ -178,6 +178,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        keyboardVisible = true
         liveTimer?.invalidate()
         
         ratesTableView.beginUpdates()
@@ -188,6 +189,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         let currentCurency = currencies[indexPath.row]
         currentBaseCurrency = currentCurency.currency ?? "EUR"
         currentRate = currentCurency.rate ?? 0.0
+        loadData()
         
         //Remove the item in the currencies
         let removeItem = currencies.remove(at: indexPath.row)
@@ -197,7 +199,22 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         ratesTableView.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .top)
         ratesTableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
         
-        startUpdateRates()
+        //Make the text field of the table view becomes first responder
+        self.ratesTableView.delegate?.scrollViewDidScroll!(self.ratesTableView)
+    }
+    
+    //MARK: Function to make the text field to become first responder
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if keyboardVisible == true {
+            let cell = ratesTableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? RateCell
+            cell?.rateTextField.becomeFirstResponder()
+        }
+    }
+    
+    //This is necessary to make becomeFirstResponder() to work properly
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
 
