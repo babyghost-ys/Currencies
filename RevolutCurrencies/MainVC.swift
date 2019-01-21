@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
     //Adding table view and the cell name
     let cellName = "cell"
@@ -133,9 +133,16 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         if self.currencies.count > 0 {
             cell.configureCell(self.currencies[indexPath.row])
+            cell.rateTextField.delegate = self
+            cell.rateTextField.addTarget(self, action: #selector(textFieldDidChange(_:)),
+                                         for: .editingChanged)
         }
         
         return cell
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        print("Text Field Changed")
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
