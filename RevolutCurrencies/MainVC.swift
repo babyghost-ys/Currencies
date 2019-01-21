@@ -34,6 +34,8 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.hideKeyboardWhenTapped()
+        
         //Trying to add the table view to the main interface
         view.addSubview(ratesTableView)
         setupLayout()
