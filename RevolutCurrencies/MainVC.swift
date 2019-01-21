@@ -45,13 +45,17 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         ratesTableView.delegate = self
         ratesTableView.dataSource = self
         
+        startUpdateRates()
+    }
+
+    func startUpdateRates() {
         //Updating every second
         liveTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(loadData), userInfo: nil, repeats: true)
     }
-
+    
     @objc func loadData() {
         //ApiHandler Test
-        apiHandler.requestData("https://revolut.duckdns.org/latest?base=GBP") { (returnedData) in
+        apiHandler.requestData("https://revolut.duckdns.org/latest?base=\(currentBaseCurrency)") { (returnedData) in
             
             if let ratesDictionary = returnedData as? [String : Any] {
                 if let rates = ratesDictionary["rates"] as? [String : Any] {
@@ -100,6 +104,19 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        liveTimer?.invalidate()
+        
+        ratesTableView.beginUpdates()
+        ratesTableView.moveRow(at: indexPath, to: IndexPath(row: 0, section: 0))
+        ratesTableView.endUpdates()
+        
+        currentBaseCurrency = currencies[indexPath.row].currency ?? "EUR"
+        
+        startUpdateRates()
     }
 }
 
