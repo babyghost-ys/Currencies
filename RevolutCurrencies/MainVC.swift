@@ -65,7 +65,11 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                         self.currencies.removeAll()
                         
                         for rate in rates {
-                            let currency = Currency(rate.key, rate: rate.value as? Double ?? 0)
+                            //Grab the rate value from the dictionary first
+                            let rateValue = rate.value as? Double ?? 0
+                            
+                            //Create the Currency object and multiple by the user's entered amount (currentRate)
+                            let currency = Currency(rate.key, rate: rateValue * self.currentRate)
                             self.currencies.append(currency)
                         }
                         
