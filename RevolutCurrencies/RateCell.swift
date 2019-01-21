@@ -23,7 +23,7 @@ class RateCell: UITableViewCell {
     
     let rateTextField: UITextField = {
         let textField = UITextField()
-        textField.keyboardType = UIKeyboardType.numberPad
+        textField.keyboardType = UIKeyboardType.decimalPad
         textField.textAlignment = .right
         return textField
     }()

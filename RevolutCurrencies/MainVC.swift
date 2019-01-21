@@ -92,12 +92,10 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
                         let baseCurrency = Currency(self.currentBaseCurrency, rate: self.currentRate)
                         self.currencies.insert(baseCurrency, at: 0)
                         
-                        
                         if self.keyboardVisible == false {
                             //If keyboard is not shown (condition == false), just reload the whole table.
                             self.ratesTableView.reloadData()
                         } else {
-                            
                             //If keyboard is shown (condition == true), that means the user is entering value. So, we need to update each row.
                             self.ratesTableView.beginUpdates()
                             var changeIndexPath = [IndexPath]()
