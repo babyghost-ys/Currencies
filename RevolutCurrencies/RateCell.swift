@@ -15,7 +15,7 @@ class RateCell: UITableViewCell {
         return view
     }()
     
-    let currenciesLabel: UILabel = {
+    let currencyLabel: UILabel = {
         let label = UILabel()
         return label
     }()
@@ -32,18 +32,23 @@ class RateCell: UITableViewCell {
     
     func addUIElements() {
         addSubview(cellView)
-        cellView.addSubview(currenciesLabel)
+        cellView.addSubview(currencyLabel)
         cellView.addSubview(rateTextField)
         
         cellView.setAnchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0)
         
-        currenciesLabel.setAnchor(top: nil, left: cellView.leftAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 8, paddingBottom: 0, paddingRight: 0)
-        currenciesLabel.centerYAnchor.constraint(equalTo: cellView.centerYAnchor).isActive = true
+        currencyLabel.setAnchor(top: nil, left: cellView.leftAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 8, paddingBottom: 0, paddingRight: 0)
+        currencyLabel.centerYAnchor.constraint(equalTo: cellView.centerYAnchor).isActive = true
         
-        rateTextField.setAnchor(top: nil, left: currenciesLabel.rightAnchor, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 8, paddingBottom: 0, paddingRight: 8, height: 30)
+        rateTextField.setAnchor(top: nil, left: currencyLabel.rightAnchor, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 8, paddingBottom: 0, paddingRight: 8, height: 30)
         rateTextField.centerYAnchor.constraint(equalTo: cellView.centerYAnchor).isActive = true
     }
 
+    func configureCell(_ inputCurrency: Currency) {
+        currencyLabel.text = "\(inputCurrency.currency ?? "")"
+        rateTextField.text = "\(inputCurrency.rate ?? 0)"
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

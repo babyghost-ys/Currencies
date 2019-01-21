@@ -58,7 +58,6 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     
                     //Update UI and data at the main thread
                     DispatchQueue.main.async {
-                        
                         self.currencies.removeAll()
                         
                         for rate in rates {
@@ -95,8 +94,11 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellName, for: indexPath) as? RateCell else {
             return RateCell()
         }
-        cell.currenciesLabel.text = "\(self.currencies[indexPath.row].currency ?? "")"
-        cell.rateTextField.text = "\(self.currencies[indexPath.row].rate ?? 0)"
+        
+        if self.currencies.count > 0 {
+            cell.configureCell(self.currencies[indexPath.row])
+        }
+        
         return cell
     }
 }
