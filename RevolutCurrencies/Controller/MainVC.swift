@@ -187,6 +187,11 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         keyboardVisible = true
         liveTimer?.invalidate()
         
+        //Re-enable the selected row's text field
+        let cell = tableView.cellForRow(at: indexPath) as? RateCell
+        cell?.rateTextField.isEnabled = true
+        
+        //Move the selected row to the top
         ratesTableView.beginUpdates()
         ratesTableView.moveRow(at: indexPath, to: IndexPath(row: 0, section: 0))
         ratesTableView.endUpdates()

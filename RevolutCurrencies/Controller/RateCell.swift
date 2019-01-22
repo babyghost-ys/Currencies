@@ -26,6 +26,7 @@ class RateCell: UITableViewCell {
         let textField = UITextField()
         textField.keyboardType = UIKeyboardType.decimalPad
         textField.textAlignment = .right
+        textField.isEnabled = false
         return textField
     }()
     
