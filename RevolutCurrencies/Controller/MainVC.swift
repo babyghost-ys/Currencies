@@ -89,14 +89,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
                     self.ratesTableView.reloadData()
                 } else {
                     //If keyboard is shown (condition == true), that means the user is entering value. So, we need to update each row.
-                    self.ratesTableView.beginUpdates()
-                    var changeIndexPath = [IndexPath]()
-                    for x in 1..<self.currencies.count {
-                        let currentIndexPath = IndexPath(row: x, section: 0)
-                        changeIndexPath.append(currentIndexPath)
-                    }
-                    self.ratesTableView.reloadRows(at: changeIndexPath, with: .automatic)
-                    self.ratesTableView.endUpdates()
+                    self.updateTableRowsByIndexPath()
                 }
             }
             
@@ -140,7 +133,18 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         ratesTableView.setAnchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0)
     }
     
-    //MARK: Main table view delegates
+    //MARK: Main table view delegates and related functions
+    func updateTableRowsByIndexPath() {
+        self.ratesTableView.beginUpdates()
+        var changeIndexPath = [IndexPath]()
+        for x in 1..<self.currencies.count {
+            let currentIndexPath = IndexPath(row: x, section: 0)
+            changeIndexPath.append(currentIndexPath)
+        }
+        self.ratesTableView.reloadRows(at: changeIndexPath, with: .automatic)
+        self.ratesTableView.endUpdates()
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.currencies.count
     }
