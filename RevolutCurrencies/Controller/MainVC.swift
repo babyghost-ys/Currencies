@@ -36,6 +36,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Currencies"
         
         //Allow users to tap the navigation bar to hide the keyboard
         self.navigationController?.hideKeyboardWhenTapped()
