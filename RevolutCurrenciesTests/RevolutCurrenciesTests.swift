@@ -38,9 +38,8 @@ class RevolutCurrenciesTests: XCTestCase {
         waitForExpectations(timeout: 3, handler: nil)
     }
     
-    //MARK: Testing whether the Currency object would be nil or not
+    //Testing whether the Currency object would be nil or not
     func testRefreshCurencyObject() {
-        mainVC.currentBaseCurrency = "HKD"
         mainVC.dataHandler.getData(mainVC.currentBaseCurrency, completionHandler: { (rates) in
             self.mainVC.refreshCurrencyData(rates: rates)
             
@@ -53,4 +52,17 @@ class RevolutCurrenciesTests: XCTestCase {
         waitForExpectations(timeout: 3, handler: nil)
     }
     
+    //Making sure the total number of Currency object is equals to the total number of received data (rates.count).
+    func testReturnedDataCount() {
+        mainVC.dataHandler.getData(mainVC.currentBaseCurrency, completionHandler: { (rates) in
+            self.mainVC.refreshCurrencyData(rates: rates)
+            
+            if self.mainVC.currencies.count == rates.count {
+                self.promise.fulfill()
+            } else {
+                XCTFail("Total count of [Currency] class object is not correct")
+            }
+        })
+        waitForExpectations(timeout: 3, handler: nil)
+    }
 }
