@@ -76,16 +76,9 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
             
             //Update UI and data at the main thread
             DispatchQueue.main.async {
-                self.currencies.removeAll()
                 
-                for rate in rates {
-                    //Grab the rate value from the dictionary first
-                    let rateValue = rate.value as? Double ?? 0
-                    
-                    //Create the Currency object and multiple by the user's entered amount (currentRate)
-                    let currency = Currency(rate.key, rate: rateValue * self.currentRate)
-                    self.currencies.append(currency)
-                }
+                //Create the currency array object
+                self.refreshCurrencyData(rates: rates)
                 
                 //Add back the current base currency on top of the Currency object
                 let baseCurrency = Currency(self.currentBaseCurrency, rate: self.currentRate)
@@ -107,6 +100,20 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
                 }
             }
             
+        }
+    }
+    
+    //MARK: Function to create the Currency data object
+    func refreshCurrencyData(rates: [String: Any]) {
+        self.currencies.removeAll()
+        
+        for rate in rates {
+            //Grab the rate value from the dictionary first
+            let rateValue = rate.value as? Double ?? 0
+            
+            //Create the Currency object and multiple by the user's entered amount (currentRate)
+            let currency = Currency(rate.key, rate: rateValue * self.currentRate)
+            self.currencies.append(currency)
         }
     }
     
