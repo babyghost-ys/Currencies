@@ -12,10 +12,12 @@ import XCTest
 class RevolutCurrenciesTests: XCTestCase {
     
     var mainVC: MainVC!
+    var promise: XCTestExpectation!
 
     override func setUp() {
         mainVC = MainVC()
         mainVC.loadViewIfNeeded()
+        promise = expectation(description: "Test Passed!")
     }
 
     override func tearDown() {
