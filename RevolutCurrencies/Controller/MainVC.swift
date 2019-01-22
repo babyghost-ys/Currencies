@@ -194,6 +194,8 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         //Re-enable the selected row's text field
         let cell = tableView.cellForRow(at: indexPath) as? RateCell
         cell?.rateTextField.isEnabled = true
+        //Make the text field of the table view becomes first responder
+        cell?.rateTextField.becomeFirstResponder()
         
         //Move the selected row to the top
         ratesTableView.beginUpdates()
@@ -211,20 +213,10 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         currencies.insert(removeItem, at: 0)
         
         //Scroll to top of the table view
-        ratesTableView.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .top)
-        ratesTableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
-        
-        //Make the text field of the table view becomes first responder
-        self.ratesTableView.delegate?.scrollViewDidScroll!(self.ratesTableView)
+        let indexPath = IndexPath(row: 0, section: 0)
+        tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
-    
-    //MARK: Function to make the text field to become first responder
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if keyboardVisible == true {
-            let cell = ratesTableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? RateCell
-            cell?.rateTextField.becomeFirstResponder()
-        }
-    }
+
     
     //This is necessary to make becomeFirstResponder() to work properly
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
