@@ -114,9 +114,9 @@
 			isa = PBXGroup;
 			children = (
 				AAFE852E21F48EC90012CF68 /* ApiHandler.swift */,
+				AA0D7E1A21F6C34200BABC89 /* DataHandler.swift */,
 				AAFB44D021F483220015DD0A /* MainVC.swift */,
 				AA6BFBB021F4F7D500804D22 /* RateCell.swift */,
-				AA0D7E1A21F6C34200BABC89 /* DataHandler.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";

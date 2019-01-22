@@ -12,6 +12,7 @@ import XCTest
 class RevolutCurrenciesTests: XCTestCase {
     
     var mainVC: MainVC!
+    let apiHandler = ApiHandler()
     var promise: XCTestExpectation!
     
     override func setUp() {
@@ -37,12 +38,19 @@ class RevolutCurrenciesTests: XCTestCase {
         waitForExpectations(timeout: 3, handler: nil)
     }
     
-    func testPerformance() {
-        self.measure {
-            mainVC.dataHandler.getData(mainVC.currentBaseCurrency, completionHandler: { (rates) in
-                
-            })
-        }
+    //MARK: Testing whether the Currency object would be nil or not
+    func testRefreshCurencyObject() {
+        mainVC.currentBaseCurrency = "HKD"
+        mainVC.dataHandler.getData(mainVC.currentBaseCurrency, completionHandler: { (rates) in
+            self.mainVC.refreshCurrencyData(rates: rates)
+            
+            if self.mainVC.currencies.count >= 0 {
+                self.promise.fulfill()
+            } else {
+                XCTFail("Currency object unable to get data")
+            }
+        })
+        waitForExpectations(timeout: 3, handler: nil)
     }
     
 }
