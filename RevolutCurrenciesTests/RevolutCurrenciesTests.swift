@@ -25,8 +25,21 @@ class RevolutCurrenciesTests: XCTestCase {
         super.tearDown()
     }
 
-    func testExample() {
-        
+    //Testing async progress
+    func testDownloadData() {
+        mainVC.apiHandler.requestData("https://revolut.duckdns.org/latest?base=\(mainVC.currentBaseCurrency)", completionHandler: { (returnedData) in
+            
+            if let ratesDictionary = returnedData as? [String : Any] {
+                if let rates = ratesDictionary["rates"] as? [String : Any] {
+                    if rates.count > 0 {
+                        self.promise.fulfill()
+                    } else {
+                        XCTFail("Returned data is nil")
+                    }
+                }
+            }
+        })
+        waitForExpectations(timeout: 3, handler: nil)
     }
 
     func testPerformance() {
