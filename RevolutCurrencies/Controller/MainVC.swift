@@ -18,8 +18,8 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         return tableView
     }()
     
-    //ApiHandler Test
-    let apiHandler = ApiHandler()
+    //Calling the data handler to fetch and parse data
+    let dataHandler = DataHandler()
     
     //Holding the converted currencies and rates
     var currencies = [Currency]()
@@ -72,49 +72,42 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     
     //MARK: Main function to load data from the internet
     @objc func loadData() {
-        apiHandler.requestData("https://revolut.duckdns.org/latest?base=\(currentBaseCurrency)") { (returnedData) in
+        dataHandler.getData(currentBaseCurrency) { (rates) in
             
-            //Parse the data as dictionary first
-            if let ratesDictionary = returnedData as? [String : Any] {
-                if let rates = ratesDictionary["rates"] as? [String : Any] {
+            //Update UI and data at the main thread
+            DispatchQueue.main.async {
+                self.currencies.removeAll()
+                
+                for rate in rates {
+                    //Grab the rate value from the dictionary first
+                    let rateValue = rate.value as? Double ?? 0
                     
-                    //Update UI and data at the main thread
-                    DispatchQueue.main.async {
-                        self.currencies.removeAll()
-                        
-                        for rate in rates {
-                            //Grab the rate value from the dictionary first
-                            let rateValue = rate.value as? Double ?? 0
-                            
-                            //Create the Currency object and multiple by the user's entered amount (currentRate)
-                            let currency = Currency(rate.key, rate: rateValue * self.currentRate)
-                            self.currencies.append(currency)
-                        }
-                        
-                        //Add back the current base currency on top of the Currency object
-                        let baseCurrency = Currency(self.currentBaseCurrency, rate: self.currentRate)
-                        self.currencies.insert(baseCurrency, at: 0)
-                        
-                        if self.keyboardVisible == false {
-                            //If keyboard is not shown (condition == false), just reload the whole table.
-                            self.ratesTableView.reloadData()
-                        } else {
-                            //If keyboard is shown (condition == true), that means the user is entering value. So, we need to update each row.
-                            self.ratesTableView.beginUpdates()
-                            var changeIndexPath = [IndexPath]()
-                            for x in 1..<self.currencies.count {
-                                let currentIndexPath = IndexPath(row: x, section: 0)
-                                changeIndexPath.append(currentIndexPath)
-                            }
-                            self.ratesTableView.reloadRows(at: changeIndexPath, with: .automatic)
-                            self.ratesTableView.endUpdates()
-                        }
-                        
+                    //Create the Currency object and multiple by the user's entered amount (currentRate)
+                    let currency = Currency(rate.key, rate: rateValue * self.currentRate)
+                    self.currencies.append(currency)
+                }
+                
+                //Add back the current base currency on top of the Currency object
+                let baseCurrency = Currency(self.currentBaseCurrency, rate: self.currentRate)
+                self.currencies.insert(baseCurrency, at: 0)
+                
+                if self.keyboardVisible == false {
+                    //If keyboard is not shown (condition == false), just reload the whole table.
+                    self.ratesTableView.reloadData()
+                } else {
+                    //If keyboard is shown (condition == true), that means the user is entering value. So, we need to update each row.
+                    self.ratesTableView.beginUpdates()
+                    var changeIndexPath = [IndexPath]()
+                    for x in 1..<self.currencies.count {
+                        let currentIndexPath = IndexPath(row: x, section: 0)
+                        changeIndexPath.append(currentIndexPath)
                     }
+                    self.ratesTableView.reloadRows(at: changeIndexPath, with: .automatic)
+                    self.ratesTableView.endUpdates()
                 }
             }
+            
         }
-        
     }
     
     //MARK: Notification centres to monitor the keyboard

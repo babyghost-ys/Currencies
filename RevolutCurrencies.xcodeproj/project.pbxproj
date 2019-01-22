@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		85178F4122045B1F32661CE6 /* Pods_RevolutCurrenciesTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 469FAF9AF57C040DD948FB06 /* Pods_RevolutCurrenciesTests.framework */; };
+		AA0D7E1B21F6C34200BABC89 /* DataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0D7E1A21F6C34200BABC89 /* DataHandler.swift */; };
 		AA6BFBAF21F4F6A400804D22 /* UIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6BFBAE21F4F6A400804D22 /* UIExtensions.swift */; };
 		AA6BFBB121F4F7D500804D22 /* RateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6BFBB021F4F7D500804D22 /* RateCell.swift */; };
 		AA76FD9621F577C800566E41 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA76FD9521F577C800566E41 /* Currency.swift */; };
@@ -34,6 +35,7 @@
 		469FAF9AF57C040DD948FB06 /* Pods_RevolutCurrenciesTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RevolutCurrenciesTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		661187D3FCAFB42136C1AB73 /* Pods-RevolutCurrencies.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RevolutCurrencies.release.xcconfig"; path = "Pods/Target Support Files/Pods-RevolutCurrencies/Pods-RevolutCurrencies.release.xcconfig"; sourceTree = "<group>"; };
 		95C1AC9B4BABA06A36F626E1 /* Pods_RevolutCurrencies.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RevolutCurrencies.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA0D7E1A21F6C34200BABC89 /* DataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataHandler.swift; sourceTree = "<group>"; };
 		AA6BFBAE21F4F6A400804D22 /* UIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIExtensions.swift; sourceTree = "<group>"; };
 		AA6BFBB021F4F7D500804D22 /* RateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateCell.swift; sourceTree = "<group>"; };
 		AA76FD9521F577C800566E41 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				AAFE852E21F48EC90012CF68 /* ApiHandler.swift */,
 				AAFB44D021F483220015DD0A /* MainVC.swift */,
 				AA6BFBB021F4F7D500804D22 /* RateCell.swift */,
+				AA0D7E1A21F6C34200BABC89 /* DataHandler.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -330,6 +333,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA76FD9621F577C800566E41 /* Currency.swift in Sources */,
+				AA0D7E1B21F6C34200BABC89 /* DataHandler.swift in Sources */,
 				AAFB44D121F483220015DD0A /* MainVC.swift in Sources */,
 				AA6BFBB121F4F7D500804D22 /* RateCell.swift in Sources */,
 				AAFE852F21F48EC90012CF68 /* ApiHandler.swift in Sources */,
